@@ -1,0 +1,13 @@
+apiVersion: v2
+name: web-transport-echo-server
+description: A Helm chart for deploying the WebTransport Echo Server as a DaemonSet
+version: 0.1.0
+appVersion: "0.1.0"
+keywords:
+  - webtransport
+  - quic
+  - echo
+  - daemonset
+home: https://github.com/kosumi/web-transport-echo-server
+sources:
+  - https://github.com/kosumi/web-transport-echo-server

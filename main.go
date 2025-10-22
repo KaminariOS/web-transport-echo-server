@@ -22,8 +22,8 @@ import (
 )
 
 var (
-	apiAddressFlag          = flag.String("api-address", "localhost:8000", "api bind address formatted as <host>:<port>")
-	webTransportAddressFlag = flag.String("web-transport-address", "localhost:4443", "web transport bind address formatted as <host>:<port>")
+	apiAddressFlag          = flag.String("api-address", "0.0.0.0:8000", "api bind address formatted as <host>:<port>")
+	webTransportAddressFlag = flag.String("web-transport-address", "0.0.0.0:4443", "web transport bind address formatted as <host>:<port>")
 )
 
 func main() {

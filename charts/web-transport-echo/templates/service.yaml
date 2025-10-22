@@ -1,0 +1,25 @@
+{{- if .Values.service.create }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "web-transport-echo-server.fullname" . }}
+  labels:
+    {{- include "web-transport-echo-server.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    {{- include "web-transport-echo-server.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: api
+      protocol: {{ .Values.service.ports.api.protocol | default "TCP" }}
+      port: {{ .Values.service.ports.api.port }}
+      targetPort: {{ .Values.service.ports.api.targetPort }}
+    - name: webtransport
+      protocol: {{ .Values.service.ports.webTransport.protocol | default "UDP" }}
+      port: {{ .Values.service.ports.webTransport.port }}
+      targetPort: {{ .Values.service.ports.webTransport.targetPort }}
+{{- end }}

@@ -1,0 +1,115 @@
+image:
+  repository: docker.io/allheil/web_transport_echo
+  tag: ""
+  pullPolicy: Always
+
+imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+priorityClassName: ""
+
+podSecurityContext:
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+  runAsUser: 65532
+  runAsGroup: 65532
+  runAsNonRoot: true
+
+args:
+  apiAddress: 0.0.0.0:8000
+  webTransportAddress: 0.0.0.0:4443
+
+service:
+  create: true
+  type: ClusterIP
+  annotations: {}
+  ports:
+    api:
+      port: 8000
+      targetPort: 8000
+      protocol: TCP
+    webTransport:
+      port: 4443
+      targetPort: 4443
+      protocol: UDP
+
+resources: {}
+
+tolerations: []
+
+affinity: {}
+
+nodeSelector: {}
+
+extraEnv: []
+
+extraEnvFrom: []
+
+extraVolumeMounts: []
+
+extraVolumes: []
+
+topologySpreadConstraints: []
+
+updateStrategy: {}
+
+hostNetwork: false
+
+dnsPolicy: ""
+
+livenessProbe:
+  enabled: true
+  httpGet:
+    path: /
+    port: api
+  initialDelaySeconds: 10
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+
+readinessProbe:
+  enabled: true
+  httpGet:
+    path: /
+    port: api
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 3
+  successThreshold: 1
+
+startupProbe:
+  enabled: false
+  httpGet:
+    path: /
+    port: api
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 30
+  successThreshold: 1
+
+serviceMonitor:
+  enabled: false
+  interval: 30s
+  scrapeTimeout: 10s
+  additionalLabels: {}

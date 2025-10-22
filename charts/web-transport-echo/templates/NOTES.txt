@@ -1,0 +1,8 @@
+1. Deploy the chart:
+   helm install {{ .Release.Name }} {{ .Chart.Name }} -n <namespace>
+
+2. Confirm the DaemonSet is running:
+   kubectl get daemonset {{ include "web-transport-echo-server.fullname" . }} -n <namespace>
+
+3. Access the API service within the cluster via:
+   kubectl port-forward service/{{ include "web-transport-echo-server.fullname" . }} -n <namespace> 8000:{{ .Values.service.ports.api.port }}
